@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf6f1;
+  --foreground: #2c2420;
+  --cream: #faf6f1;
+  --cream-dark: #f0e8df;
+  --warm-white: #fffdfb;
+  --text-muted: #6b5e55;
+  --accent: #d4785c;
+  --accent-hover: #c0654a;
+  --accent-soft: #fceee8;
+  --peach: #f5d5c0;
+  --blush: #f8e4dc;
+  --border: #e8ddd3;
+  --card-shadow: 0 2px 8px rgba(44, 36, 32, 0.05), 0 12px 32px rgba(44, 36, 32, 0.06);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cream: var(--cream);
+  --color-cream-dark: var(--cream-dark);
+  --color-warm-white: var(--warm-white);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-peach: var(--peach);
+  --color-blush: var(--blush);
+  --color-border: var(--border);
+  --font-sans: var(--font-karla);
+  --font-display: var(--font-young-serif);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer utilities {
+  .card-shadow {
+    box-shadow: var(--card-shadow);
+  }
+}
+
+@keyframes soft-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-soft-float {
+  animation: soft-float 5s ease-in-out infinite;
+}
+
+@keyframes reviews-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-reviews-scroll {
+  animation: reviews-scroll 45s linear infinite;
+}
