@@ -48,7 +48,17 @@ export const useCartStore = create<CartStore>()(
       totalItems: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
       subtotal: () => get().items.reduce((sum, i) => sum + i.priceEur * i.quantity, 0),
     }),
-    { name: "plusis-cart" },
+    {
+      name: "plusis-cart",
+      partialize: (state) => ({ items: state.items }),
+    },
   ),
 );
 
+export function cartCount(items: CartItem[]) {
+  return items.reduce((sum, i) => sum + i.quantity, 0);
+}
+
+export function cartSubtotal(items: CartItem[]) {
+  return items.reduce((sum, i) => sum + i.priceEur * i.quantity, 0);
+}

@@ -49,7 +49,7 @@ export function WaitlistButton({
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "rounded-full border border-foreground/20 bg-warm-white font-semibold text-foreground transition hover:border-accent hover:text-accent",
+          "min-h-11 rounded-full border border-foreground/20 bg-warm-white font-semibold text-foreground transition hover:border-accent hover:text-accent",
           size === "sm" ? "px-4 py-2.5 text-sm" : "px-6 py-3 text-base",
           fullWidth && "w-full",
         )}
@@ -67,14 +67,14 @@ export function WaitlistButton({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="jusu@email.lt"
-        className="w-full rounded-full border border-border bg-warm-white px-4 py-2.5 text-sm outline-none ring-accent focus:ring-2"
+        className="min-h-11 w-full rounded-full border border-border bg-warm-white px-4 py-2.5 text-base outline-none ring-accent focus:ring-2 sm:text-sm"
         autoFocus
       />
       <button
         type="submit"
         disabled={status === "loading"}
         className={cn(
-          "rounded-full bg-accent font-semibold text-white transition hover:bg-accent-hover disabled:opacity-60",
+          "min-h-11 rounded-full bg-accent font-semibold text-white transition hover:bg-accent-hover disabled:opacity-60",
           size === "sm" ? "px-4 py-2.5 text-sm" : "px-6 py-3 text-base",
         )}
       >

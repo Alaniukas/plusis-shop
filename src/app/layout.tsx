@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Karla, Young_Serif } from "next/font/google";
 import "./globals.css";
 import { DemoBanner } from "@/components/demo-banner";
@@ -18,6 +18,13 @@ const youngSerif = Young_Serif({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://plusis.lt";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#faf6f1",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

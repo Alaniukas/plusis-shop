@@ -14,16 +14,16 @@ export default function AboutPage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-2xl px-4 py-12 md:py-20">
+      <main className="mx-auto max-w-2xl px-4 py-8 md:py-20">
         <FadeIn>
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
             {COMPANY.brand}
           </p>
-          <h1 className="mt-3 font-display text-3xl tracking-tight md:text-4xl">
+          <h1 className="mt-3 font-display text-[1.75rem] leading-tight tracking-tight sm:text-3xl md:text-4xl">
             Kai norisi ne žodžių — o apkabinimo
           </h1>
 
-          <div className="mt-8 space-y-5 text-[17px] leading-relaxed text-muted">
+          <div className="mt-8 space-y-5 text-base leading-relaxed text-muted sm:text-[17px]">
             <p>
               Kartais diena būna per ilga. Mintys nesustoja, o kūnas prašo tik vieno —
               būti šalia ko nors šilto, tylaus, sunkesnio. Be klausimų. Be skubos.

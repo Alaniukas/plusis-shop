@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CartButton } from "./cart-button";
 import { AnnouncementBar } from "./announcement-bar";
+import { MobileNav } from "./mobile-nav";
 import { COMPANY } from "@/lib/company";
 
 const navLinks = [
@@ -54,28 +55,27 @@ export function SiteHeader({ transparent = false }: { transparent?: boolean }) {
     <header
       className={
         transparent
-          ? "absolute inset-x-0 top-0 z-50"
-          : "sticky top-0 z-50 bg-warm-white/95 backdrop-blur-md"
+          ? "absolute inset-x-0 top-0 z-[90]"
+          : "sticky top-0 z-[90] bg-warm-white/95 backdrop-blur-md"
       }
     >
       {!transparent && <AnnouncementBar />}
       <div className={transparent ? "" : "border-b border-border"}>
-        {/* 3 equal zones → nav tikrai per vidurį */}
-        <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 py-3">
-          <Link href="/" className="flex items-center gap-3 justify-self-start">
-            <LogoMark className="h-12 w-12 drop-shadow-sm md:h-14 md:w-14" />
+        <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-2.5 sm:gap-3 sm:py-3">
+          <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <LogoMark className="h-10 w-10 shrink-0 drop-shadow-sm sm:h-12 sm:w-12 md:h-14 md:w-14" />
             <span
               className={
                 transparent
-                  ? "font-display text-2xl tracking-tight text-white drop-shadow md:text-[1.85rem]"
-                  : "font-display text-2xl tracking-tight text-foreground md:text-[1.85rem]"
+                  ? "truncate font-display text-xl tracking-tight text-white drop-shadow sm:text-2xl md:text-[1.85rem]"
+                  : "truncate font-display text-xl tracking-tight text-foreground sm:text-2xl md:text-[1.85rem]"
               }
             >
               {COMPANY.brand}
             </span>
           </Link>
 
-          <nav className="hidden items-center justify-center gap-8 md:flex">
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -91,8 +91,9 @@ export function SiteHeader({ transparent = false }: { transparent?: boolean }) {
             ))}
           </nav>
 
-          <div className="justify-self-end">
+          <div className="flex shrink-0 items-center gap-0.5 sm:gap-1">
             <CartButton light={transparent} />
+            <MobileNav light={transparent} />
           </div>
         </div>
       </div>

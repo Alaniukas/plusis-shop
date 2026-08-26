@@ -1,17 +1,17 @@
 "use client";
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
-import { useCartStore } from "@/lib/cart-store";
+import { cartCount, useCartStore } from "@/lib/cart-store";
 
 export function CartButton({ light = false }: { light?: boolean }) {
-  const count = useCartStore((s) => s.totalItems());
+  const count = useCartStore((s) => cartCount(s.items));
   return (
     <Link
       href="/krepselis"
       className={
         light
-          ? "relative rounded-full p-2 text-white transition hover:bg-white/15"
-          : "relative rounded-full p-2 text-muted transition hover:bg-cream-dark hover:text-foreground"
+          ? "relative inline-flex h-11 w-11 items-center justify-center rounded-full text-white transition hover:bg-white/15"
+          : "relative inline-flex h-11 w-11 items-center justify-center rounded-full text-muted transition hover:bg-cream-dark hover:text-foreground"
       }
       aria-label="Krepšelis"
     >

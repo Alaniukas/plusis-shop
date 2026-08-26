@@ -83,7 +83,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
+      <main className="mx-auto max-w-6xl px-4 py-8 md:py-14">
         <FadeIn>
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <ProductGallery images={product.images} name={product.name} soldOut={soldOut} />
@@ -93,13 +93,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
                   {product.animalLabel}
                 </p>
-                <h1 className="mt-2 font-display text-4xl tracking-tight md:text-5xl">
+                <h1 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl md:text-5xl">
                   {product.name}
                 </h1>
-                <p className="mt-4 text-lg leading-relaxed text-muted">{product.description}</p>
+                <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">{product.description}</p>
               </div>
 
-              <p className="text-3xl font-semibold tracking-tight">{formatEur(UNIT_PRICE)}</p>
+              <p className="text-2xl font-semibold tracking-tight sm:text-3xl">{formatEur(UNIT_PRICE)}</p>
 
               {!soldOut && <BundleNote />}
 
@@ -111,8 +111,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <WaitlistButton product={product} size="md" fullWidth />
                 </div>
               ) : (
-                <div className="max-w-sm">
-                  <AddToCartButton product={product} />
+                <div className="w-full max-w-sm">
+                  <AddToCartButton product={product} fullWidth />
                 </div>
               )}
 

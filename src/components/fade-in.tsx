@@ -18,6 +18,18 @@ export function FadeIn({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -25,7 +37,7 @@ export function FadeIn({
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0.01, rootMargin: "40px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -36,7 +48,7 @@ export function FadeIn({
       ref={ref}
       className={cn(
         "transition-all duration-700 ease-out",
-        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
+        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-100 md:opacity-0",
         className,
       )}
       style={{ transitionDelay: `${delay}ms` }}

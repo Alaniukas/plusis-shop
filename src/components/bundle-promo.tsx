@@ -23,10 +23,14 @@ export function BundlePromo() {
               </span>
               <h3 className="mt-4 font-display text-xl tracking-tight">{bundle.title}</h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{bundle.subtitle}</p>
+              <p className="mt-3 text-sm font-semibold text-foreground">
+                Pasirinkite {bundle.minItems}
+                {bundle.minItems >= 3 ? "+" : ""} vnt. · −{bundle.discountPercent}%
+              </p>
               <Link
-                href="/#katalogas"
+                href={`/produktai?rinktis=${bundle.minItems}#katalogas`}
                 className={cn(
-                  "mt-6 inline-flex justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition",
+                  "mt-6 inline-flex min-h-11 items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition",
                   i === 0
                     ? "bg-accent text-white hover:bg-accent-hover"
                     : "border border-border hover:bg-cream",

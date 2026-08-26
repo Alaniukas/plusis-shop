@@ -33,13 +33,13 @@ export function ProductGallery({
         )}
       </div>
       {images.length > 1 && (
-        <div className="grid grid-cols-4 gap-2 sm:grid-cols-5">
+        <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:grid sm:grid-cols-5 sm:overflow-visible sm:pb-0">
           {images.map((src, i) => (
             <button
               key={src + i}
               type="button"
               onClick={() => setActive(i)}
-              className={`overflow-hidden rounded-xl bg-cream ring-offset-2 transition ${
+              className={`h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-cream ring-offset-2 transition sm:h-auto sm:w-auto sm:aspect-auto ${
                 i === active ? "ring-2 ring-accent" : "opacity-80 hover:opacity-100"
               }`}
             >
@@ -48,7 +48,7 @@ export function ProductGallery({
                 alt=""
                 width={160}
                 height={160}
-                className="aspect-square w-full object-cover"
+                className="aspect-square h-full w-full object-cover"
               />
             </button>
           ))}

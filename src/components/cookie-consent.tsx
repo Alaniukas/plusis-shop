@@ -78,8 +78,8 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[80] flex justify-center p-4 md:p-6">
-      <div className="flex w-full max-w-2xl flex-col gap-4 rounded-2xl border border-border bg-warm-white p-5 shadow-lg sm:flex-row sm:items-center">
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[80] flex justify-center p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:p-6">
+      <div className="pointer-events-auto flex w-full max-w-2xl flex-col gap-3 rounded-2xl border border-border bg-warm-white p-4 shadow-lg sm:flex-row sm:items-center sm:gap-4 sm:p-5">
         <div className="flex-1 text-sm leading-relaxed text-muted">
           <p className="font-semibold text-foreground">Mes naudojame slapukus</p>
           <p className="mt-1">
@@ -94,14 +94,14 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={() => save(false)}
-            className="rounded-full border border-border px-4 py-2.5 text-sm font-semibold transition hover:bg-cream"
+            className="min-h-11 rounded-full border border-border px-4 py-2.5 text-sm font-semibold transition hover:bg-cream"
           >
             Tik būtini
           </button>
           <button
             type="button"
             onClick={() => save(true)}
-            className="rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-hover"
+            className="min-h-11 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-hover"
           >
             Sutinku
           </button>

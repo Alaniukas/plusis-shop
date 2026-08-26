@@ -11,7 +11,7 @@ export function ProductCard({ product }: { product: Product }) {
     product.status === "sold_out" || product.status === "coming_soon" || product.stockCount <= 0;
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl bg-warm-white card-shadow transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <article className="group flex flex-col overflow-hidden rounded-2xl bg-warm-white card-shadow transition duration-300 md:hover:-translate-y-1 md:hover:shadow-lg">
       <Link href={href} className="block">
         <div className="relative aspect-square overflow-hidden bg-cream">
           <Image
@@ -28,7 +28,7 @@ export function ProductCard({ product }: { product: Product }) {
           )}
         </div>
       </Link>
-      <div className="flex flex-1 flex-col px-5 pb-5 pt-4 text-center">
+      <div className="flex flex-1 flex-col px-4 pb-4 pt-3 text-center sm:px-5 sm:pb-5 sm:pt-4">
         <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">
           {product.animalLabel}
         </p>

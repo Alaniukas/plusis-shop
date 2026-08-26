@@ -7,10 +7,10 @@ export function CustomSizeBanner({ compact }: { compact?: boolean }) {
       className={
         compact
           ? "rounded-xl border border-border bg-cream-dark p-4 text-sm text-muted"
-          : "rounded-2xl border border-border bg-gradient-to-br from-blush/60 to-cream-dark p-6 md:p-8"
+          : "rounded-2xl border border-border bg-gradient-to-br from-blush/60 to-cream-dark p-5 md:p-8"
       }
     >
-      <div className="flex gap-4">
+      <div className="flex gap-3 sm:gap-4">
         <Mail className="mt-0.5 h-5 w-5 shrink-0 text-accent" strokeWidth={1.5} />
         <div>
           <p className="font-extrabold text-foreground">Norite kitokio svorio ar dydžio?</p>

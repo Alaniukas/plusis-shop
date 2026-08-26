@@ -6,6 +6,7 @@ import { BundlePromo } from "@/components/bundle-promo";
 import { CustomSizeBanner } from "@/components/custom-size-banner";
 import { WhyBuy } from "@/components/why-buy";
 import { FadeIn } from "@/components/fade-in";
+import { BundleGoal } from "@/components/bundle-goal";
 import { getActiveProducts, getSoldOutProducts } from "@/lib/catalog";
 import { formatEur } from "@/lib/utils";
 import { UNIT_PRICE } from "@/lib/pricing";
@@ -30,7 +31,7 @@ export default function ProductsPage() {
     <>
       <SiteHeader />
       <main>
-        <div className="bg-warm-white px-4 py-12 text-center md:py-14">
+        <div className="bg-warm-white px-4 py-10 text-center md:py-14">
           <FadeIn>
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
               {COMPANY.brand}
@@ -56,6 +57,7 @@ export default function ProductsPage() {
         </div>
         <section id="katalogas" className="mx-auto max-w-6xl scroll-mt-24 px-4 pb-10">
           <FadeIn>
+            <BundleGoal />
             <ProductGrid products={list} columns={3} />
           </FadeIn>
         </section>

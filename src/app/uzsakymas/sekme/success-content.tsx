@@ -17,14 +17,14 @@ export default function SuccessContent() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-xl px-4 py-20 text-center">
-        <h1 className="font-display text-3xl font-semibold tracking-tight">
+      <main className="mx-auto max-w-xl px-4 py-12 text-center md:py-20">
+        <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
           {isDemo ? "Demo užsakymas atliktas!" : "Ačiū už užsakymą!"}
         </h1>
         {isDemo && <p className="mt-4 text-muted">Išsaugota: data/demo-orders.json</p>}
         <Link
           href="/produktai"
-          className="mt-8 inline-flex rounded-full bg-accent px-6 py-3 font-semibold text-warm-white transition hover:bg-accent-hover"
+          className="mt-8 inline-flex min-h-11 items-center rounded-full bg-accent px-6 py-3 font-semibold text-warm-white transition hover:bg-accent-hover"
         >
           Grįžti į produktus
         </Link>

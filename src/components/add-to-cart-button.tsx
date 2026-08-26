@@ -1,4 +1,5 @@
 "use client";
+import { useState, type MouseEvent } from "react";
 import type { Product } from "@/types/product";
 import { useCartStore } from "@/lib/cart-store";
 import { cn } from "@/lib/utils";
@@ -13,25 +14,36 @@ export function AddToCartButton({
   fullWidth?: boolean;
 }) {
   const addItem = useCartStore((s) => s.addItem);
+  const [added, setAdded] = useState(false);
+
+  function handleClick(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      priceEur: product.priceEur,
+      image: product.images[0],
+    });
+    setAdded(true);
+    window.setTimeout(() => setAdded(false), 1600);
+  }
+
   return (
     <button
       type="button"
-      onClick={() =>
-        addItem({
-          productId: product.id,
-          slug: product.slug,
-          name: product.name,
-          priceEur: product.priceEur,
-          image: product.images[0],
-        })
-      }
+      onClick={handleClick}
       className={cn(
-        "rounded-full bg-accent font-semibold text-warm-white transition hover:bg-accent-hover",
+        "relative z-10 min-h-11 rounded-full font-semibold transition",
+        added
+          ? "bg-stone-800 text-white"
+          : "bg-accent text-warm-white hover:bg-accent-hover",
         size === "sm" ? "px-4 py-2.5 text-sm" : "px-6 py-3 text-base",
         fullWidth && "w-full",
       )}
     >
-      Į krepšelį
+      {added ? "Pridėta" : "Į krepšelį"}
     </button>
   );
 }

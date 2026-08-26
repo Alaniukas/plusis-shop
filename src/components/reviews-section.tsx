@@ -73,7 +73,7 @@ function Stars({ rating }: { rating: number }) {
 
 function ReviewCard({ r }: { r: Review }) {
   return (
-    <article className="flex w-[min(85vw,320px)] shrink-0 flex-col border-t border-border pt-6 md:w-[340px]">
+    <article className="flex w-[min(78vw,300px)] shrink-0 snap-start flex-col border-t border-border pt-6 md:w-[340px]">
       <Stars rating={r.rating} />
       <p className="mt-4 flex-1 text-[15px] leading-relaxed text-foreground/85">„{r.text}“</p>
       <div className="mt-6 flex items-center gap-3">
@@ -99,7 +99,7 @@ export function ReviewsSection() {
   const loop = [...reviews, ...reviews];
 
   return (
-    <section className="overflow-hidden bg-warm-white py-16 md:py-20">
+    <section className="overflow-x-clip bg-warm-white py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4">
         <p className="text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
           Atsiliepimai
@@ -109,12 +109,12 @@ export function ReviewsSection() {
         </h2>
       </div>
 
-      <div className="relative mt-10">
+      <div className="relative mt-10 w-full min-w-0">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-warm-white to-transparent md:w-24" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-warm-white to-transparent md:w-24" />
 
-        <div className="flex gap-10 overflow-hidden">
-          <div className="flex min-w-max animate-reviews-scroll gap-10 px-4 hover:[animation-play-state:paused]">
+        <div className="flex w-full min-w-0 overflow-hidden">
+          <div className="flex w-max max-w-none animate-reviews-scroll gap-10 px-4 hover:[animation-play-state:paused]">
             {loop.map((r, i) => (
               <ReviewCard key={`${r.name}-${i}`} r={r} />
             ))}
