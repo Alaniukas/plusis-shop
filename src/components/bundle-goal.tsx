@@ -13,7 +13,7 @@ function BundleGoalInner() {
 
   if (!target) return null;
 
-  const percent = target >= 3 ? 20 : 15;
+  const percent = target >= 3 ? 15 : 10;
   const remaining = Math.max(0, target - count);
   const done = remaining === 0;
 

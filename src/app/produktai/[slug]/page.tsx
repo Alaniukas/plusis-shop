@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) return {};
   const title = `${product.name} — svorinis ${product.animalLabel.toLowerCase()}`;
   const description = product.description;
@@ -53,7 +53,7 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
   const soldOut =
     product.status === "sold_out" || product.status === "coming_soon" || product.stockCount <= 0;
@@ -83,7 +83,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-4 py-8 md:py-14">
+      <main className="mx-auto max-w-6xl px-4 py-8 pb-28 md:py-14 md:pb-14">
         <FadeIn>
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <ProductGallery images={product.images} name={product.name} soldOut={soldOut} />
@@ -117,7 +117,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               )}
 
               <div className="border-t border-border pt-6">
-                <h2 className="font-display text-lg tracking-tight">Jo istorija</h2>
+                <h2 className="font-display text-lg tracking-tight">Istorija</h2>
                 <p className="mt-3 text-[15px] leading-relaxed text-muted">{product.story}</p>
               </div>
 

@@ -1,13 +1,14 @@
 "use client";
-import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 import { cartCount, useCartStore } from "@/lib/cart-store";
 
 export function CartButton({ light = false }: { light?: boolean }) {
   const count = useCartStore((s) => cartCount(s.items));
+  const openDrawer = useCartStore((s) => s.openDrawer);
   return (
-    <Link
-      href="/krepselis"
+    <button
+      type="button"
+      onClick={openDrawer}
       className={
         light
           ? "relative inline-flex h-11 w-11 items-center justify-center rounded-full text-white transition hover:bg-white/15"
@@ -21,6 +22,6 @@ export function CartButton({ light = false }: { light?: boolean }) {
           {count}
         </span>
       )}
-    </Link>
+    </button>
   );
 }

@@ -1,5 +1,6 @@
-import type { Product, ProductFamily } from "@/types/product";
+import type { Product, ProductFamily, ProductStatus } from "@/types/product";
 import { UNIT_PRICE } from "@/lib/pricing";
+import { getSupabaseAdmin } from "@/lib/supabase";
 
 const BASE = {
   weightKg: 1,
@@ -11,7 +12,7 @@ const BASE = {
   priceEur: UNIT_PRICE,
 };
 
-/** Katalogas — landing foto pirma */
+/** Statinis katalogas — FALLBACK jei Supabase nepasiekiamas */
 export const products: Product[] = [
   {
     id: "panda-1",
@@ -111,18 +112,116 @@ export const familyLabels: Record<ProductFamily, string> = {
   sloth: "Tinginiai",
 };
 
-export function getProductBySlug(slug: string) {
+type DbProductRow = {
+  id: string;
+  slug: string;
+  name: string;
+  family: string;
+  price_eur: number | string;
+  stock_count: number | null;
+  status: string | null;
+  data: Partial<Product> | null;
+};
+
+function isFamily(v: unknown): v is ProductFamily {
+  return v === "panda" || v === "koala" || v === "red-panda" || v === "sloth";
+}
+
+function isStatus(v: unknown): v is ProductStatus {
+  return v === "active" || v === "coming_soon" || v === "sold_out";
+}
+
+function mapDbRow(row: DbProductRow): Product | null {
+  const fallback = products.find((p) => p.id === row.id);
+  const data = (row.data ?? {}) as Partial<Product>;
+  const family = isFamily(row.family)
+    ? row.family
+    : isFamily(data.family)
+      ? data.family
+      : fallback?.family;
+  if (!family) return null;
+
+  const statusRaw = row.status ?? data.status ?? fallback?.status ?? "active";
+  const status: ProductStatus = isStatus(statusRaw) ? statusRaw : "active";
+
+  const priceNum = Number(row.price_eur);
+  const priceEur = Number.isFinite(priceNum) && priceNum > 0 ? priceNum : (fallback?.priceEur ?? UNIT_PRICE);
+
+  return {
+    ...(fallback ?? {
+      weightKg: BASE.weightKg,
+      lengthCm: BASE.lengthCm,
+      weightZones: BASE.weightZones,
+      material: BASE.material,
+      ageFrom: BASE.ageFrom,
+      care: BASE.care,
+      animalLabel: row.name,
+      persona: "",
+      description: "",
+      story: "",
+      colorLabel: "",
+      colorHex: "#2c2420",
+      images: [],
+    }),
+    ...data,
+    id: row.id,
+    slug: row.slug || data.slug || fallback?.slug || row.id,
+    name: row.name || data.name || fallback?.name || row.id,
+    family,
+    priceEur,
+    stockCount: row.stock_count ?? data.stockCount ?? fallback?.stockCount ?? 0,
+    status,
+  };
+}
+
+/** Krauna produktus iš Supabase; jei nepavyksta — grąžina statinį fallback. */
+export async function loadProductsFromDb(): Promise<Product[]> {
+  try {
+    const supabase = getSupabaseAdmin();
+    if (!supabase) return products;
+
+    const { data, error } = await supabase
+      .from("products")
+      .select("id, slug, name, family, price_eur, stock_count, status, data")
+      .order("created_at", { ascending: true });
+
+    if (error || !data?.length) {
+      if (error) console.error("catalog db load failed", error.message);
+      return products;
+    }
+
+    const mapped = (data as DbProductRow[])
+      .map(mapDbRow)
+      .filter((p): p is Product => p != null);
+
+    return mapped.length ? mapped : products;
+  } catch (err) {
+    console.error("catalog db load error", err);
+    return products;
+  }
+}
+
+export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+  const list = await loadProductsFromDb();
+  return list.find((p) => p.slug === slug);
+}
+
+export async function getActiveProducts(): Promise<Product[]> {
+  const list = await loadProductsFromDb();
+  return list.filter((p) => p.status === "active");
+}
+
+export async function getSoldOutProducts(): Promise<Product[]> {
+  const list = await loadProductsFromDb();
+  return list.filter((p) => p.status === "sold_out" || p.status === "coming_soon");
+}
+
+export async function getComingSoonProducts(): Promise<Product[]> {
+  const list = await loadProductsFromDb();
+  return list.filter((p) => p.status === "coming_soon" || p.status === "sold_out");
+}
+
+/** Sinchroninis fallback (sitemap / generateStaticParams). */
+export function getProductBySlugSync(slug: string) {
   return products.find((p) => p.slug === slug);
-}
-
-export function getActiveProducts() {
-  return products.filter((p) => p.status === "active");
-}
-
-export function getSoldOutProducts() {
-  return products.filter((p) => p.status === "sold_out" || p.status === "coming_soon");
-}
-
-export function getComingSoonProducts() {
-  return products.filter((p) => p.status === "coming_soon" || p.status === "sold_out");
 }

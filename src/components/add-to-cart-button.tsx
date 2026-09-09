@@ -3,6 +3,7 @@ import { useState, type MouseEvent } from "react";
 import type { Product } from "@/types/product";
 import { useCartStore } from "@/lib/cart-store";
 import { cn } from "@/lib/utils";
+import { trackMeta } from "@/lib/meta-pixel";
 
 export function AddToCartButton({
   product,
@@ -25,6 +26,13 @@ export function AddToCartButton({
       name: product.name,
       priceEur: product.priceEur,
       image: product.images[0],
+    });
+    trackMeta("AddToCart", {
+      content_ids: [product.id],
+      content_name: product.name,
+      content_type: "product",
+      value: product.priceEur,
+      currency: "EUR",
     });
     setAdded(true);
     window.setTimeout(() => setAdded(false), 1600);

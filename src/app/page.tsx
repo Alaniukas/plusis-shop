@@ -14,9 +14,9 @@ import { COMPANY } from "@/lib/company";
 import { formatEur } from "@/lib/utils";
 import { UNIT_PRICE } from "@/lib/pricing";
 
-export default function HomePage() {
-  const featured = getActiveProducts();
-  const soldOut = getSoldOutProducts();
+export default async function HomePage() {
+  const featured = await getActiveProducts();
+  const soldOut = await getSoldOutProducts();
 
   return (
     <>

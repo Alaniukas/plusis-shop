@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProductsPage() {
-  const list = getActiveProducts();
-  const soldOut = getSoldOutProducts();
+export default async function ProductsPage() {
+  const list = await getActiveProducts();
+  const soldOut = await getSoldOutProducts();
 
   return (
     <>

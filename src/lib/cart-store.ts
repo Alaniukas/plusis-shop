@@ -7,6 +7,9 @@ export { UNIT_PRICE, FREE_SHIPPING_THRESHOLD, SHIPPING_COST, calculateDiscount }
 
 interface CartStore {
   items: CartItem[];
+  drawerOpen: boolean;
+  openDrawer: () => void;
+  closeDrawer: () => void;
   addItem: (item: Omit<CartItem, "quantity">) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
@@ -19,17 +22,18 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
+      drawerOpen: false,
+      openDrawer: () => set({ drawerOpen: true }),
+      closeDrawer: () => set({ drawerOpen: false }),
       addItem: (item) =>
         set((state) => {
           const existing = state.items.find((i) => i.productId === item.productId);
-          if (existing) {
-            return {
-              items: state.items.map((i) =>
+          const items = existing
+            ? state.items.map((i) =>
                 i.productId === item.productId ? { ...i, quantity: i.quantity + 1 } : i,
-              ),
-            };
-          }
-          return { items: [...state.items, { ...item, quantity: 1 }] };
+              )
+            : [...state.items, { ...item, quantity: 1 }];
+          return { items, drawerOpen: true };
         }),
       removeItem: (productId) =>
         set((state) => ({ items: state.items.filter((i) => i.productId !== productId) })),

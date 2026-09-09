@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Karla, Young_Serif } from "next/font/google";
 import "./globals.css";
-import { DemoBanner } from "@/components/demo-banner";
 import { CookieConsent } from "@/components/cookie-consent";
+import { CartDrawer } from "@/components/cart-drawer";
+import { AnalyticsTracker } from "@/components/analytics-tracker";
 import { COMPANY } from "@/lib/company";
 
 const karla = Karla({
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
     template: `%s | ${COMPANY.brand}`,
   },
   description:
-    "Svoriniai ilgorankiai pliušiniai Lietuvoje — Bambukas, Mira, Ugnelis. Švelnus svoris mažina stresą ir nerimą, padeda užmigti. Nemokamas pristatymas nuo 50 €.",
+    "Svoriniai pliušiniai su ilgomis rankomis Lietuvoje — Bambukas, Mira, Ugnelis. Švelnus svoris mažina stresą ir nerimą, padeda užmigti. Nemokamas pristatymas nuo 50 €.",
   keywords: [
     "svorinis pliušinis",
     "ilgorankis pliušinis",
@@ -91,9 +93,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
         />
-        <DemoBanner />
         {children}
+        <CartDrawer />
         <CookieConsent />
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
       </body>
     </html>
   );

@@ -31,7 +31,7 @@ Cursor: **File → Open Folder** → šis kelias. Terminale visos komandos tik i
 | Brand | Plušis |
 | Adresas | A. Vivulskio g. 22-40, LT-03115 Vilnius |
 | Tel. | +370 623 94956 |
-| El. paštas | info@lafela.lt |
+| El. paštas | info@plusis.lt |
 | Įmonės kodas | 307556216 |
 
 Šaltinis kode: `src/lib/company.ts` — **visada naudok `COMPANY`**, ne hardcode.
@@ -91,7 +91,7 @@ Pristatymas: nemokamas nuo 50 EUR, kitaip 3,99 EUR.
 
 ## Individualūs užsakymai
 
-Standartinis svoris/dydis gali būti koreguojamas — tik asmeniniu susitarimu el. **info@lafela.lt**. Banner: `src/components/custom-size-banner.tsx`.
+Standartinis svoris/dydis gali būti koreguojamas — tik asmeniniu susitarimu el. **info@plusis.lt**. Banner: `src/components/custom-size-banner.tsx`.
 
 ## Struktūra
 
